@@ -33,7 +33,31 @@ app.get('/marsupilamis',(req,res)=>{
         console.log(err);
     });
 });
+// get by name
+app.get('/marsupilamis/:nom',(req,res)=>{
+    mysqlConnection.query('SELECT * FROM marsupilami where nom = ?',[req.params.nom],(err,rows,fields)=>{
+        if(!err)
+        res.send(rows);
+        else
+        console.log(err);
+    });
+});
+// login
+app.post('/login',(req,res)=>{
+    let login = req.body;
+    var sql = "SELECT * FROM marsupilami where nom = ? and password = ?"
+    mysqlConnection.query(sql,[login.nom,login.password],(err,rows,fields)=>{
+        if(err)
+        console.log(err);
+        else{
+            if(rows[0])
+            res.send(true);
+            else
+            res.send(false)
 
+        }
+    });
+});
 // register
 app.post('/marsupilamis',(req,res)=>{
     let reg = req.body;
@@ -50,6 +74,20 @@ app.post('/marsupilamis',(req,res)=>{
 // delete
 app.delete('/marsupilamis/:id',(req,res)=>{
     mysqlConnection.query('DELETE FROM marsupilami WHERE ID=?',[req.params.id],(err,rows,fields)=>{
+        if(err)
+        console.log(err);
+        else
+        res.send()
+    });
+});
+
+//add friend
+app.post('/ami',(req,res)=>{
+    let ami = req.body;
+    console.log(ami);
+    var sql = "INSERT INTO amis (idconn,idami)\
+    VALUES (?,?);"
+    mysqlConnection.query(sql,[ami.idconn,ami.idami],(err,rows,fields)=>{
         if(err)
         console.log(err);
         else

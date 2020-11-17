@@ -14,7 +14,7 @@ export class AjouterComponent implements OnInit {
     nom:"",
     password:"",
     nourriture:"",
-    age:12,
+    age:0,
     race:"",
     famille:""
   };
@@ -26,7 +26,7 @@ export class AjouterComponent implements OnInit {
   inscreption(){
     this.myserv.addNew(this.register).subscribe(res=>{
       console.log("added");
-      this.route.navigate(['/']);
+      this.route.navigate(['/login']);
 
     },err=> console.log(err))
   }
