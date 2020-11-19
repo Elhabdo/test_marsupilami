@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Globals } from 'src/app/services/globals';
 import { MyservicesService } from 'src/app/services/myservices.service';
 
 @Component({
@@ -8,13 +9,13 @@ import { MyservicesService } from 'src/app/services/myservices.service';
 })
 export class MoncompteComponent implements OnInit {
   me:any=0;
-  constructor(private ser:MyservicesService) { }
+  constructor(private ser:MyservicesService,private glb:Globals) { }
 
   ngOnInit(): void {
     this.getcompte();
   }
   getcompte(){
-    this.ser.getbyname("Pilami").subscribe(res=>{
+    this.ser.getbyname(this.glb.currentuser.nom).subscribe(res=>{
       this.me=res;
     })
   }
